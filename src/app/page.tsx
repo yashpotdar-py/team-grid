@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import React, { useState } from 'react';
-import Timer from './components/Timer';
-import Grid from './components/Grid';
+import React, { useState } from "react";
+import Timer from "./components/Timer";
+import Grid from "./components/Grid";
 
 const HomePage: React.FC = () => {
   const [activeCellCount, setActiveCellCount] = useState(0);

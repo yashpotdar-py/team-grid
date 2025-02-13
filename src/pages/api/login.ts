@@ -3,7 +3,10 @@ import { getAdminCollection } from "../../utils/manage_teams";
 import { setCookie } from "nookies";
 import bcrypt from "bcryptjs";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method === "POST") {
     const { username, password } = req.body;
     const collection = await getAdminCollection();
