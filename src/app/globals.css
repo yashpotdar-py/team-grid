@@ -1,7 +1,9 @@
+/* Tailwind CSS imports */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Root variables */
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -14,15 +16,17 @@
   }
 }
 
+/* Font face */
 @font-face {
-  font-family: 'Game Of Squids';
-  src: url('/fonts/Game Of Squids.ttf') format('truetype');
+  font-family: "Game Of Squids";
+  src: url("/fonts/Game Of Squids.ttf") format("truetype");
 }
 
+/* Global styles */
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Game Of Squids', Arial, sans-serif;
+  font-family: "Game Of Squids", Arial, sans-serif;
 }
 
 .container {
@@ -31,19 +35,26 @@ body {
   padding: 20px;
 }
 
+/* API page styles */
 .api-page {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Heading styles */
 .heading {
-  font-family: 'Game Of Squids', Arial, sans-serif;
-  font-size: 2.5rem;
+  font-family: "Game Of Squids", Arial, sans-serif;
+  font-size: 3rem;
   text-align: center;
-  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
+.heading .highlight {
+  color: rgb(255, 88, 116);
+}
+
+/* Form styles */
 .form-group {
   margin-bottom: 20px;
 }
@@ -51,9 +62,12 @@ body {
 .form-group label {
   display: block;
   font-size: 1rem;
-  font-weight: bold;
-  color: #333;
+  color: #fff;
   margin-bottom: 5px;
+}
+
+.highlight {
+  color: rgb(255, 88, 116);
 }
 
 .input-field {
@@ -87,6 +101,7 @@ body {
   margin-top: 10px;
 }
 
+/* Grid styles */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -139,19 +154,9 @@ body {
   color: #666;
 }
 
-.heading {
-  font-family: 'Game Of Squids', Arial, sans-serif;
-  font-size: 3rem;
-  text-align: center;
-  margin-top: 20px;
-}
-
-.heading .highlight {
-  color: rgb(255, 88, 116);
-}
-
+/* Timer styles */
 .timer {
-  font-family: 'Game Of Squids', Arial, sans-serif;
+  font-family: "Game Of Squids", Arial, sans-serif;
   font-size: 2rem;
   text-align: center;
   margin-top: 10px;
@@ -161,24 +166,13 @@ body {
   color: rgb(255, 88, 116);
 }
 
-.active-count {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-family: 'Game Of Squids', Arial, sans-serif;
-  font-size: 1.5rem;
-  color: rgb(255, 88, 116);
-  background-color: rgba(0, 0, 0, 0.8);
-  padding: 10px;
-  border-radius: 4px;
-  z-index: 10;
-}
-
+/* Active count styles */
+.active-count,
 .active-count-main {
   position: absolute;
   top: 10px;
   right: 10px;
-  font-family: 'Game Of Squids', Arial, sans-serif;
+  font-family: "Game Of Squids", Arial, sans-serif;
   font-size: 1.5rem;
   color: rgb(255, 88, 116);
   padding: 10px;
@@ -186,17 +180,23 @@ body {
   z-index: 10;
 }
 
+.active-count {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Problem statement styles */
 .problem-statement {
   color: rgb(255, 88, 116);
 }
 
+/* Responsive styles */
 @media (min-width: 640px) {
   .sm\:p-20 {
     padding: 5rem;
   }
 }
 
-/* Additional styles for the login page */
+/* Login page styles */
 .login-container {
   max-width: 400px;
   margin: 0 auto;
@@ -205,12 +205,12 @@ body {
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  /* background-color: #fff; */
 }
 
 .login-container label {
   color: #fff;
 }
+
 .login-container h1 {
   font-size: 2rem;
   text-align: center;
@@ -238,4 +238,27 @@ body {
   color: red;
   margin-top: 10px;
   text-align: center;
+}
+
+.response-container {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.response-heading {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.response-content {
+  font-size: 1rem;
+  color: #333;
+}
+
+.response-pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }

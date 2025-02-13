@@ -62,7 +62,9 @@ const HandleTeams = () => {
         <h1 className="heading">Check In Team</h1>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="teamNumber">Team Number</label>
+            <label htmlFor="teamNumber">
+              Team <span className="highlight"> Number </span>
+            </label>
             <input
               id="teamNumber"
               type="number"
@@ -73,7 +75,9 @@ const HandleTeams = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="teamName">Team Name</label>
+            <label htmlFor="teamName">
+              Team <span className="highlight">Name</span>
+            </label>
             <input
               id="teamName"
               type="text"
@@ -84,7 +88,9 @@ const HandleTeams = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="teamImage">Team Image</label>
+            <label htmlFor="teamImage">
+              Team <span className="highlight">Image</span>
+            </label>
             <input
               id="teamImage"
               type="text"
@@ -94,7 +100,9 @@ const HandleTeams = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="problemStatement">Problem Statement</label>
+            <label htmlFor="problemStatement">
+              Problem <span className="highlight">Statement</span>
+            </label>
             <textarea
               id="problemStatement"
               value={problemStatement}
@@ -104,7 +112,7 @@ const HandleTeams = () => {
               rows={4}
             />
           </div>
-          <button type="submit" className="ominous-button">
+          <button type="submit" className="button">
             Submit
           </button>
         </form>
@@ -112,14 +120,14 @@ const HandleTeams = () => {
           <div className="response-container">
             <h2 className="response-heading">Response</h2>
             <div className="response-content">
-              <pre>{JSON.stringify(response, null, 2)}</pre>
+              <pre className="response-pre">{JSON.stringify(response, null, 2)}</pre>
             </div>
           </div>
         )}
         <h2 className="heading">Check out Team</h2>
         <form onSubmit={handleDelete}>
           <div className="form-group">
-            <label htmlFor="deleteTeamNumber">Team Number</label>
+            <label htmlFor="deleteTeamNumber">Team <span className="highlight">Number</span></label>
             <input
               id="deleteTeamNumber"
               type="number"
@@ -129,7 +137,7 @@ const HandleTeams = () => {
               className="input-field"
             />
           </div>
-          <button type="submit" className="ominous-button">
+          <button type="submit" className="button">
             Delete
           </button>
         </form>
