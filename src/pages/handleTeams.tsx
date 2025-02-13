@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import nookies from "nookies";
 import "../app/globals.css"; // Import the global styles
 
-const ApiUI = () => {
+const handleTeams = () => {
   const [teamNumber, setTeamNumber] = useState<number | null>(null);
   const [teamName, setTeamName] = useState("");
   const [teamImage, setTeamImage] = useState("");
@@ -9,6 +11,14 @@ const ApiUI = () => {
   const [response, setResponse] = useState<any>(null);
   const [deleteTeamNumber, setDeleteTeamNumber] = useState<number | null>(null);
   const [deleteResponse, setDeleteResponse] = useState<any>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const cookies = nookies.get(null);
+    if (!cookies["admin-auth"]) {
+      router.push("/login");
+    }
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -131,4 +141,4 @@ const ApiUI = () => {
   );
 };
 
-export default ApiUI;
+export default handleTeams;

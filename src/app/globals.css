@@ -32,7 +32,6 @@ body {
 }
 
 .api-page {
-  /* background-color: #ffffff; */
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -53,7 +52,7 @@ body {
   display: block;
   font-size: 1rem;
   font-weight: bold;
-  color: #fff;
+  color: #333;
   margin-bottom: 5px;
 }
 
@@ -66,8 +65,8 @@ body {
   color: #333;
 }
 
-.ominous-button {
-  background-color: #ff0000;
+.button {
+  background-color: #007bff;
   color: #ffffff;
   border: none;
   padding: 10px 20px;
@@ -79,25 +78,13 @@ body {
   width: 100%;
 }
 
-.ominous-button:hover {
-  background-color: #cc0000;
+.button:hover {
+  background-color: #0056b3;
 }
 
-.response-container {
-  margin-top: 20px;
-}
-
-.response-heading {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.response-content {
-  background-color: #f0f0f0;
-  padding: 10px;
-  border-radius: 4px;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+.error-message {
+  color: #ff0000;
+  margin-top: 10px;
 }
 
 .grid-container {
@@ -194,7 +181,6 @@ body {
   font-family: 'Game Of Squids', Arial, sans-serif;
   font-size: 1.5rem;
   color: rgb(255, 88, 116);
-  /* background-color: rgba(0, 0, 0, 0.8); */
   padding: 10px;
   border-radius: 4px;
   z-index: 10;

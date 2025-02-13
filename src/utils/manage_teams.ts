@@ -19,3 +19,8 @@ export async function connectToDatabase() {
   }
   return client.db("techathon-teams");
 }
+
+export async function getAdminCollection() {
+  const db = await connectToDatabase();
+  return db.collection("admins");
+}
