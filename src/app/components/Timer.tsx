@@ -33,12 +33,13 @@ const Timer: React.FC = () => {
     <div className="timer">
       <p>Time left for the hackathon:</p>
       <p>{formatTime(timeLeft)}</p>
-      <button onClick={() => setIsRunning(true)} className="ominous-button">
+      <button onClick={() => setIsRunning(true)} className="ominous-button" style={{ marginRight: '10px' }}>
         Start Timer
       </button>
       <button
         onClick={() => setTimeLeft(24 * 60 * 60)}
         className="ominous-button"
+        style={{ marginRight: '10px' }}
       >
         Reset Timer
       </button>
