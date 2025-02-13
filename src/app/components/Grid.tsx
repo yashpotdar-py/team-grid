@@ -71,7 +71,7 @@ const Grid: React.FC<GridProps> = ({ onActiveCellChange }) => {
             className={`grid-cell ${activeTeam ? "active" : "inactive"}`}
           >
             {activeTeam && activeTeam.teamImage && (
-              <Image src={activeTeam.teamImage} alt={activeTeam.teamName} />
+              <Image src={activeTeam.teamImage} alt={activeTeam.teamName} width={100} height={100} />
             )}
             <div className="team-name">
               {activeTeam ? activeTeam.teamName : cell.name}

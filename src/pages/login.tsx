@@ -1,42 +1,52 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
+import nookies from "nookies";
 
-const Login = () => {
+const LoginPage: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, password }),
-    });
-    const data = await res.json();
-    if (data.success) {
-      router.push("/handleTeams");
-    } else {
-      setError("Invalid credentials");
+    setError(null);
+
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
+      const data = await res.json();
+      nookies.set(null, "admin-auth", data.token, { path: "/" });
+      router.push("/");
+    } catch (err) {
+      console.error("Login failed:", err);
+      setError("Login failed. Please check your credentials and try again.");
     }
   };
 
   return (
-    <div className="container">
-      <h1 className="heading">Login</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="login-container">
+      <h1>Login</h1>
+      <form onSubmit={handleLogin}>
         <div className="form-group">
           <label htmlFor="username">Username</label>
           <input
             id="username"
             type="text"
-            className="input-field"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
+            className="input-field"
           />
         </div>
         <div className="form-group">
@@ -44,19 +54,19 @@ const Login = () => {
           <input
             id="password"
             type="password"
-            className="input-field"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            className="input-field"
           />
         </div>
-        <button type="submit" className="button">
+        {error && <div className="error-message">{error}</div>}
+        <button type="submit" className="login-button">
           Login
         </button>
       </form>
-      {error && <p className="error-message">{error}</p>}
     </div>
   );
 };
 
-export default Login;
+export default LoginPage;
