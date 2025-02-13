@@ -3,14 +3,19 @@ import { useRouter } from "next/router";
 import nookies from "nookies";
 import "../app/globals.css"; // Import the global styles
 
-const handleTeams = () => {
+const HandleTeams = () => {
   const [teamNumber, setTeamNumber] = useState<number | null>(null);
   const [teamName, setTeamName] = useState("");
   const [teamImage, setTeamImage] = useState("");
   const [problemStatement, setProblemStatement] = useState("");
-  const [response, setResponse] = useState<any>(null);
+  const [response, setResponse] = useState<Record<string, unknown> | null>(
+    null
+  );
   const [deleteTeamNumber, setDeleteTeamNumber] = useState<number | null>(null);
-  const [deleteResponse, setDeleteResponse] = useState<any>(null);
+  const [deleteResponse, setDeleteResponse] = useState<Record<
+    string,
+    unknown
+  > | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -141,4 +146,4 @@ const handleTeams = () => {
   );
 };
 
-export default handleTeams;
+export default HandleTeams;

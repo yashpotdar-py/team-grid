@@ -10,7 +10,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen p-8 pb-20 sm:p-20">
       <h1 className="heading">
-        Techathon <span className="highlight">'25</span>
+        Techathon <span className="highlight">&apos;25</span>
       </h1>
       <Timer />
       <Grid onActiveCellChange={setActiveCellCount} />

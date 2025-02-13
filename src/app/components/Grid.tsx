@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 
 interface GridProps {
   onActiveCellChange: (count: number) => void;
@@ -43,7 +44,7 @@ const Grid: React.FC<GridProps> = ({ onActiveCellChange }) => {
 
     // Clean up the interval on component unmount
     return () => clearInterval(intervalId);
-  }, [onActiveCellChange]);
+  }, [fetchActiveTeams, onActiveCellChange]);
 
   const cells = Array.from({ length: 320 }, (_, i) => ({
     number: i + 1,
@@ -52,43 +53,6 @@ const Grid: React.FC<GridProps> = ({ onActiveCellChange }) => {
 
   const formatNumber = (num: number) => {
     return `#${num.toString().padStart(3, "0")}`;
-  };
-
-  const toggleCellState = (number: number) => {
-    const activeTeam = activeTeams.find((team) => team.teamNumber === number);
-    if (activeTeam) {
-      // Send DELETE request to make the cell inactive
-      fetch("/api/handleCell", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ teamNumber: number }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setActiveTeams(data.activeTeams);
-          onActiveCellChange(data.activeTeams.length);
-        });
-    } else {
-      // Send POST request to make the cell active
-      fetch("/api/handleCell", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          teamNumber: number,
-          teamName: `Team ${number}`,
-          problemStatement: "",
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setActiveTeams(data.activeTeams);
-          onActiveCellChange(data.activeTeams.length);
-        });
-    }
   };
 
   useEffect(() => {
@@ -107,7 +71,7 @@ const Grid: React.FC<GridProps> = ({ onActiveCellChange }) => {
             className={`grid-cell ${activeTeam ? "active" : "inactive"}`}
           >
             {activeTeam && activeTeam.teamImage && (
-              <img src={activeTeam.teamImage} alt={activeTeam.teamName} />
+              <Image src={activeTeam.teamImage} alt={activeTeam.teamName} />
             )}
             <div className="team-name">
               {activeTeam ? activeTeam.teamName : cell.name}
