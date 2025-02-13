@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import nookies from "nookies";
+import "../app/globals.css";
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -27,7 +28,7 @@ const LoginPage: React.FC = () => {
 
       const data = await res.json();
       nookies.set(null, "admin-auth", data.token, { path: "/" });
-      router.push("/");
+      router.push("/handleTeams");
     } catch (err) {
       console.error("Login failed:", err);
       setError("Login failed. Please check your credentials and try again.");

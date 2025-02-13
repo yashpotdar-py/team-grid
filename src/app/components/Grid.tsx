@@ -55,6 +55,15 @@ const Grid: React.FC<GridProps> = ({ onActiveCellChange }) => {
     return `#${num.toString().padStart(3, "0")}`;
   };
 
+  const isValidUrl = (url: string) => {
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
   useEffect(() => {
     onActiveCellChange(activeTeams.length);
   }, [activeTeams, onActiveCellChange]);
@@ -70,8 +79,16 @@ const Grid: React.FC<GridProps> = ({ onActiveCellChange }) => {
             key={cell.number}
             className={`grid-cell ${activeTeam ? "active" : "inactive"}`}
           >
-            {activeTeam && activeTeam.teamImage && (
-              <Image src={activeTeam.teamImage} alt={activeTeam.teamName} width={100} height={100} />
+            {activeTeam && activeTeam.teamImage && isValidUrl(activeTeam.teamImage) && (
+              <Image
+                src={activeTeam.teamImage}
+                alt={activeTeam.teamName}
+                width={100}
+                height={100}
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
             )}
             <div className="team-name">
               {activeTeam ? activeTeam.teamName : cell.name}
