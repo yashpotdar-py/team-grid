@@ -11,6 +11,7 @@ interface Team {
   teamName: string;
   teamImage?: string;
   problemStatement: string;
+  teamState: string;
 }
 
 const Grid: React.FC<GridProps> = ({ onActiveCellChange }) => {
@@ -18,10 +19,18 @@ const Grid: React.FC<GridProps> = ({ onActiveCellChange }) => {
 
   const fetchActiveTeams = () => {
     fetch("/api/handleCell")
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((data) => {
         setActiveTeams(data.activeTeams);
         onActiveCellChange(data.activeTeams.length);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch active teams:", error);
       });
   };
 
@@ -30,7 +39,7 @@ const Grid: React.FC<GridProps> = ({ onActiveCellChange }) => {
     fetchActiveTeams();
 
     // Set up polling to fetch active teams every 5 seconds
-    const intervalId = setInterval(fetchActiveTeams, 500);
+    const intervalId = setInterval(fetchActiveTeams, 5000);
 
     // Clean up the interval on component unmount
     return () => clearInterval(intervalId);
@@ -39,7 +48,6 @@ const Grid: React.FC<GridProps> = ({ onActiveCellChange }) => {
   const cells = Array.from({ length: 320 }, (_, i) => ({
     number: i + 1,
     name: `Team ${i + 1}`,
-    image: `/images/team${i + 1}.png`, // Optional image path
   }));
 
   const formatNumber = (num: number) => {
@@ -97,7 +105,6 @@ const Grid: React.FC<GridProps> = ({ onActiveCellChange }) => {
           <div
             key={cell.number}
             className={`grid-cell ${activeTeam ? "active" : "inactive"}`}
-            // onClick={() => toggleCellState(cell.number)}
           >
             {activeTeam && activeTeam.teamImage && (
               <img src={activeTeam.teamImage} alt={activeTeam.teamName} />

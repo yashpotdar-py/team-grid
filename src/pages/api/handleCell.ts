@@ -1,42 +1,75 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from "next";
+import { connectToDatabase } from "../../utils/manage_teams";
 
-interface Team {
-  teamNumber: number;
-  teamName: string;
-  teamImage?: string;
-  problemStatement: string;
-}
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const db = await connectToDatabase();
+  const collection = db.collection("team-grid");
 
-let activeTeams: Team[] = [];
-
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
+  if (req.method === "POST") {
     const { teamNumber, teamName, teamImage, problemStatement } = req.body;
-    if (typeof teamNumber === 'number' && teamNumber >= 1 && teamNumber <= 320 &&
-        typeof teamName === 'string' && typeof problemStatement === 'string') {
-      const existingTeam = activeTeams.find(team => team.teamNumber === teamNumber);
+    if (
+      typeof teamNumber === "number" &&
+      teamNumber >= 1 &&
+      teamNumber <= 320 &&
+      typeof teamName === "string" &&
+      typeof problemStatement === "string"
+    ) {
+      const existingTeam = await collection.findOne({ teamNumber });
       if (!existingTeam) {
-        activeTeams.push({ teamNumber, teamName, teamImage, problemStatement });
+        await collection.insertOne({
+          teamNumber,
+          teamName,
+          teamImage,
+          problemStatement,
+          teamState: "active",
+        });
       } else {
-        existingTeam.teamName = teamName;
-        existingTeam.teamImage = teamImage;
-        existingTeam.problemStatement = problemStatement;
+        await collection.updateOne(
+          { teamNumber },
+          {
+            $set: {
+              teamName,
+              teamImage,
+              problemStatement,
+              teamState: "active",
+            },
+          }
+        );
       }
+      const activeTeams = await collection
+        .find({ teamState: "active" })
+        .toArray();
       res.status(200).json({ success: true, activeTeams });
     } else {
-      res.status(400).json({ success: false, message: 'Invalid data' });
+      res.status(400).json({ success: false, message: "Invalid data" });
     }
-  } else if (req.method === 'GET') {
-    res.status(200).json({ activeTeams });
-  } else if (req.method === 'DELETE') {
+  } else if (req.method === "DELETE") {
     const { teamNumber } = req.body;
-    if (typeof teamNumber === 'number' && teamNumber >= 1 && teamNumber <= 320) {
-      activeTeams = activeTeams.filter(team => team.teamNumber !== teamNumber);
+    if (
+      typeof teamNumber === "number" &&
+      teamNumber >= 1 &&
+      teamNumber <= 320
+    ) {
+      await collection.updateOne(
+        { teamNumber },
+        { $set: { teamState: "inactive" } }
+      );
+      const activeTeams = await collection
+        .find({ teamState: "active" })
+        .toArray();
       res.status(200).json({ success: true, activeTeams });
     } else {
-      res.status(400).json({ success: false, message: 'Invalid team number' });
+      res.status(400).json({ success: false, message: "Invalid team number" });
     }
+  } else if (req.method === "GET") {
+    const activeTeams = await collection
+      .find({ teamState: "active" })
+      .toArray();
+    res.status(200).json({ activeTeams });
   } else {
-    res.status(405).json({ success: false, message: 'Method not allowed' });
+    res.status(405).json({ success: false, message: "Method not allowed" });
   }
 }
