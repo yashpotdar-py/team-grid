@@ -19,12 +19,30 @@ const HandleTeams = () => {
   const router = useRouter();
 
   const problemStatements = [
-    "UI/UX",
-    "Backend",
-    "Frontend",
-    "Database",
-    "DevOps",
-    // Add more options as needed
+    "AS-1",
+    "AS-2",
+    "AS-4",
+    "AS-5",
+    "DM-1",
+    "DM-3",
+    "EN-1",
+    "EN-2",
+    "EN-3",
+    "EN-4",
+    "EN-5",
+    "ET-1",
+    "ET-2",
+    "ET-3",
+    "ET-4",
+    "ET-5",
+    "HC-1",
+    "HC-2",
+    "HC-3",
+    "HC-4",
+    "HC-5",
+    "SI-1",
+    "TS-1",
+    "TS-3",
   ];
 
   useEffect(() => {
@@ -130,7 +148,9 @@ const HandleTeams = () => {
               required
               className="input-field"
             >
-              <option value="" disabled>Select a problem statement</option>
+              <option value="" disabled>
+                Select a problem statement
+              </option>
               {problemStatements.map((statement) => (
                 <option key={statement} value={statement}>
                   {statement}
