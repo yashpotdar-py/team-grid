@@ -59,7 +59,7 @@ const HandleTeams = () => {
   return (
     <div className="container">
       <div className="api-page">
-        <h1 className="heading">Check In Team</h1>
+        <h1 className="heading" style={{ fontSize: '4rem' }}>Check In Team</h1>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="teamNumber">
@@ -118,13 +118,13 @@ const HandleTeams = () => {
         </form>
         {response && (
           <div className="response-container">
-            <h2 className="response-heading">Response</h2>
+            <h2 className="response-heading" style={{ fontSize: '4rem' }}>Response</h2>
             <div className="response-content">
               <pre className="response-pre">{JSON.stringify(response, null, 2)}</pre>
             </div>
           </div>
         )}
-        <h2 className="heading">Check out Team</h2>
+        <h2 className="heading" style={{ fontSize: '4rem' }}>Check out Team</h2>
         <form onSubmit={handleDelete}>
           <div className="form-group">
             <label htmlFor="deleteTeamNumber">Team <span className="highlight">Number</span></label>
@@ -143,7 +143,7 @@ const HandleTeams = () => {
         </form>
         {deleteResponse && (
           <div className="response-container">
-            <h2 className="response-heading">Delete Response</h2>
+            <h2 className="response-heading" style={{ fontSize: '4rem' }}>Delete Response</h2>
             <div className="response-content">
               <pre>{JSON.stringify(deleteResponse, null, 2)}</pre>
             </div>
@@ -153,5 +153,4 @@ const HandleTeams = () => {
     </div>
   );
 };
-
 export default HandleTeams;

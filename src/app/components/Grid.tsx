@@ -79,14 +79,28 @@ const Grid: React.FC<GridProps> = ({ onActiveCellChange }) => {
             key={cell.number}
             className={`grid-cell ${activeTeam ? "active" : "inactive"}`}
           >
-            {activeTeam && activeTeam.teamImage && isValidUrl(activeTeam.teamImage) && (
+            {activeTeam && activeTeam.teamImage && (
               <Image
-                src={activeTeam.teamImage}
+                src={`/uploads/${activeTeam.teamNumber}.png`}
                 alt={activeTeam.teamName}
                 width={100}
                 height={100}
                 onError={(e) => {
-                  e.currentTarget.style.display = 'none';
+                  const extensions = ['jpg', 'jpeg', 'webp'];
+                  let found = false;
+                  for (const ext of extensions) {
+                    const newSrc = `/uploads/${activeTeam.teamNumber}.${ext}`;
+                    fetch(newSrc, { method: 'HEAD' })
+                      .then((res) => {
+                        if (res.ok && !found) {
+                          e.currentTarget.src = newSrc;
+                          found = true;
+                        }
+                      });
+                  }
+                  if (!found) {
+                    e.currentTarget.style.display = "none";
+                  }
                 }}
               />
             )}
