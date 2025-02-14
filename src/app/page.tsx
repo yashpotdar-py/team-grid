@@ -12,7 +12,7 @@ const HomePage: React.FC = () => {
       <h1 className="heading">
         Techathon <span className="highlight">&apos;25</span>
       </h1>
-      {/* <Timer /> */}
+      <Timer />
       <Grid onActiveCellChange={setActiveCellCount} />
       <div className="active-count-main">
         {`Number of teams that have checked in: ${activeCellCount}`}

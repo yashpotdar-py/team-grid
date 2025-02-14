@@ -55,15 +55,6 @@ const Grid: React.FC<GridProps> = ({ onActiveCellChange }) => {
     return `#${num.toString().padStart(3, "0")}`;
   };
 
-  const isValidUrl = (url: string) => {
-    try {
-      new URL(url);
-      return true;
-    } catch {
-      return false;
-    }
-  };
-
   useEffect(() => {
     onActiveCellChange(activeTeams.length);
   }, [activeTeams, onActiveCellChange]);
