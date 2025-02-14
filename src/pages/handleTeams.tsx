@@ -93,10 +93,10 @@ const HandleTeams = () => {
             </label>
             <input
               id="teamImage"
-              type="text"
+              type="file"
               value={teamImage}
               onChange={(e) => setTeamImage(e.target.value)}
-              className="input-field"
+              className="input-field input-image"
             />
           </div>
           <div className="form-group">
@@ -109,7 +109,7 @@ const HandleTeams = () => {
               onChange={(e) => setProblemStatement(e.target.value)}
               required
               className="input-field"
-              rows={4}
+              rows={1}
             />
           </div>
           <button type="submit" className="button">
