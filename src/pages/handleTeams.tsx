@@ -21,7 +21,7 @@ const HandleTeams = () => {
   useEffect(() => {
     const cookies = nookies.get(null);
     if (!cookies["admin-auth"]) {
-      router.push("/login");
+      router.push("/loginPage");
     }
   }, [router]);
 
