@@ -46,7 +46,7 @@ const Grid: React.FC<GridProps> = ({ onActiveCellChange }) => {
     return () => clearInterval(intervalId);
   }, [fetchActiveTeams, onActiveCellChange]);
 
-  const cells = Array.from({ length: 320 }, (_, i) => ({
+  const cells = Array.from({ length: 316 }, (_, i) => ({
     number: i + 1,
     name: `Team ${i + 1}`,
   }));
@@ -104,10 +104,10 @@ const Grid: React.FC<GridProps> = ({ onActiveCellChange }) => {
                 }}
               />
             )}
+            <div className="team-number">{formatNumber(cell.number)}</div>
             <div className="team-name">
               {activeTeam ? activeTeam.teamName : cell.name}
             </div>
-            <div className="team-number">{formatNumber(cell.number)}</div>
             {activeTeam && (
               <div className="problem-statement">
                 {activeTeam.problemStatement}

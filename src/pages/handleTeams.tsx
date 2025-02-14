@@ -18,6 +18,15 @@ const HandleTeams = () => {
   > | null>(null);
   const router = useRouter();
 
+  const problemStatements = [
+    "UI/UX",
+    "Backend",
+    "Frontend",
+    "Database",
+    "DevOps",
+    // Add more options as needed
+  ];
+
   useEffect(() => {
     const cookies = nookies.get(null);
     if (!cookies["admin-auth"]) {
@@ -41,6 +50,12 @@ const HandleTeams = () => {
     });
     const data = await res.json();
     setResponse(data);
+    // Clear the form and response
+    setTeamNumber(null);
+    setTeamName("");
+    setTeamImage("");
+    setProblemStatement("");
+    setTimeout(() => setResponse(null), 5000); // Clear response after 5 seconds
   };
 
   const handleDelete = async (e: React.FormEvent) => {
@@ -54,12 +69,17 @@ const HandleTeams = () => {
     });
     const data = await res.json();
     setDeleteResponse(data);
+    // Clear the form and response
+    setDeleteTeamNumber(null);
+    setTimeout(() => setDeleteResponse(null), 5000); // Clear response after 5 seconds
   };
 
   return (
     <div className="container">
       <div className="api-page">
-        <h1 className="heading" style={{ fontSize: '4rem' }}>Check In Team</h1>
+        <h1 className="heading" style={{ fontSize: "4rem" }}>
+          Check In Team
+        </h1>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="teamNumber">
@@ -103,14 +123,20 @@ const HandleTeams = () => {
             <label htmlFor="problemStatement">
               Problem <span className="highlight">Statement</span>
             </label>
-            <textarea
+            <select
               id="problemStatement"
               value={problemStatement}
               onChange={(e) => setProblemStatement(e.target.value)}
               required
               className="input-field"
-              rows={1}
-            />
+            >
+              <option value="" disabled>Select a problem statement</option>
+              {problemStatements.map((statement) => (
+                <option key={statement} value={statement}>
+                  {statement}
+                </option>
+              ))}
+            </select>
           </div>
           <button type="submit" className="button">
             Submit
@@ -118,16 +144,30 @@ const HandleTeams = () => {
         </form>
         {response && (
           <div className="response-container">
-            <h2 className="response-heading" style={{ fontSize: '4rem' }}>Response</h2>
+            <h2 className="response-heading" style={{ fontSize: "4rem" }}>
+              Response
+            </h2>
             <div className="response-content">
-              <pre className="response-pre">{JSON.stringify(response, null, 2)}</pre>
-            </div>
+              {response.success ? (
+                <pre className="response-pre success">
+                  {JSON.stringify(response.success, null, 2)}
+                </pre>
+              ) : (
+                <pre className="response-pre error" style={{ color: "red" }}>
+                  {JSON.stringify(response.error, null, 2)}
+                </pre>
+              )}
+            </div>{" "}
           </div>
         )}
-        <h2 className="heading" style={{ fontSize: '4rem' }}>Check out Team</h2>
+        <h2 className="heading" style={{ fontSize: "4rem" }}>
+          Check out Team
+        </h2>
         <form onSubmit={handleDelete}>
           <div className="form-group">
-            <label htmlFor="deleteTeamNumber">Team <span className="highlight">Number</span></label>
+            <label htmlFor="deleteTeamNumber">
+              Team <span className="highlight">Number</span>
+            </label>
             <input
               id="deleteTeamNumber"
               type="number"
@@ -143,7 +183,9 @@ const HandleTeams = () => {
         </form>
         {deleteResponse && (
           <div className="response-container">
-            <h2 className="response-heading" style={{ fontSize: '4rem' }}>Delete Response</h2>
+            <h2 className="response-heading" style={{ fontSize: "4rem" }}>
+              Delete Response
+            </h2>
             <div className="response-content">
               <pre>{JSON.stringify(deleteResponse, null, 2)}</pre>
             </div>
